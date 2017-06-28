@@ -1,6 +1,8 @@
 FROM fluent/fluentd:v0.14.18
 LABEL maintainer "terje.sannum@nav.no"
 
+USER root
+
 RUN apk add --update --virtual .build-deps sudo build-base ruby-dev \
  && sudo gem install --no-document fluent-plugin-filter-record-map -v 0.1.4 \
  && sudo gem install --no-document fluent-plugin-kubernetes_metadata_filter -v 0.27.0 \
