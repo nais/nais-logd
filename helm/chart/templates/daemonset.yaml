@@ -1,0 +1,38 @@
+apiVersion: extensions/v1beta1
+kind: DaemonSet
+metadata:
+  name: nais-logd
+  namespace: kube-system
+spec:
+  template:
+    metadata:
+      labels:
+        app: nais-logd
+    spec:
+      serviceAccountName: nais-logd
+      nodeSelector:
+        nais.io/type: worker
+      containers:
+      - name: nais-logd
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+        env:
+          - name: ELASTICSEARCH_HOST
+            value: "{{ .Values.elasticsearch.host }}"
+          - name: ELASTICSEARCH_PORT
+            value: "{{ .Values.elasticsearch.port }}"
+          - name: ENV_TYPE
+            value: "{{ .Values.environment.type }}"
+        volumeMounts:
+        - name: varlog
+          mountPath: /var/log
+        - name: varlibdockercontainers
+          mountPath: /var/lib/docker/containers
+          readOnly: true
+      terminationGracePeriodSeconds: 30
+      volumes:
+      - name: varlog
+        hostPath:
+          path: /var/log
+      - name: varlibdockercontainers
+        hostPath:
+          path: /var/lib/docker/containers

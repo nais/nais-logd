@@ -1,0 +1,11 @@
+image:
+  repository: navikt/nais-logd
+  tag: 6
+elasticsearch:
+  host: elasticsearch-logging
+  port: 9200
+  # ip addresses to elasticsearch ingest nodes
+  ip:
+    - 1.2.3.4
+environment:
+  type: test
