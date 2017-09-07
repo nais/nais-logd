@@ -9,7 +9,6 @@ metadata:
     heritage: {{ .Release.Service }}
     release: {{ .Release.Name }}
   name: "{{ .Values.elasticsearch.host }}"
-  namespace: kube-system
 spec:
   ports:
     - protocol: TCP
@@ -26,7 +25,6 @@ metadata:
     heritage: {{ .Release.Service }}
     release: {{ .Release.Name }}
   name: "{{ .Values.elasticsearch.host }}"
-  namespace: kube-system
 subsets:
 {{- $port := .Values.elasticsearch.port -}}
 {{- range $ip := .Values.elasticsearch.ip }}

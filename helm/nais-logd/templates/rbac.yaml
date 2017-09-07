@@ -9,7 +9,6 @@ metadata:
     heritage: {{ .Release.Service }}
     release: {{ .Release.Name }}
   name: {{ template "nais-logd.fullname" . }}
-  namespace: kube-system
 ---
 apiVersion: rbac.authorization.k8s.io/v1beta1
 kind: ClusterRole
@@ -20,12 +19,11 @@ metadata:
     component: "{{ .Values.server.name }}"
     heritage: {{ .Release.Service }}
     release: {{ .Release.Name }}
-  namespace: kube-system
   name: {{ template "nais-logd.fullname" . }}
 rules:
-- apiGroups: [""]
-  resources: ["pods", "namespaces"]
-  verbs: ["get", "watch", "list"]
+  - apiGroups: [""]
+    resources: ["pods", "namespaces"]
+    verbs: ["get", "watch", "list"]
 ---
 apiVersion: rbac.authorization.k8s.io/v1beta1
 kind: ClusterRoleBinding
@@ -42,6 +40,6 @@ roleRef:
   kind: ClusterRole
   name: {{ template "nais-logd.fullname" . }}
 subjects:
-- kind: ServiceAccount
-  name: {{ template "nais-logd.fullname" . }}
-  namespace: kube-system
+  - kind: ServiceAccount
+    name: {{ template "nais-logd.fullname" . }}
+    namespace: {{ .Release.Namespace }}

@@ -8,6 +8,5 @@ metadata:
     heritage: {{ .Release.Service }}
     release: {{ .Release.Name }}
   name: {{ template "nais-logd.fullname" . }}
-  namespace: kube-system
 data:
 {{ toYaml .Values.configFiles | indent 2 }}

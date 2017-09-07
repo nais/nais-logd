@@ -2,7 +2,6 @@ apiVersion: extensions/v1beta1
 kind: DaemonSet
 metadata:
   name: {{ template "nais-logd.fullname" . }}
-  namespace: kube-system
 spec:
   template:
     metadata:
