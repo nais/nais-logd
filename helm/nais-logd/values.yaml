@@ -3,7 +3,7 @@ server:
 
 image:
   repository: navikt/nais-logd
-  tag: 6
+  tag: 9
 elasticsearch:
   host: elasticsearch-logging
   port: 9200
@@ -29,7 +29,7 @@ configFiles:
       read_from_head true
     </source>
 
-    <match kubernetes.var.log.containers.nais-logd**>
+    <match kubernetes.var.log.containers.**nais-logd**>
       @type null
     </match>
 
