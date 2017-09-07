@@ -1,19 +1,23 @@
 apiVersion: extensions/v1beta1
 kind: DaemonSet
 metadata:
-  name: nais-logd
+  name: {{ template "nais-logd.fullname" . }}
   namespace: kube-system
 spec:
   template:
     metadata:
       labels:
-        app: nais-logd
+        app: {{ template "nais-logd.name" . }}
+        chart: {{ .Chart.Name }}-{{ .Chart.Version }}
+        component: "{{ .Values.server.name }}"
+        heritage: {{ .Release.Service }}
+        release: {{ .Release.Name }}
     spec:
-      serviceAccountName: nais-logd
+      serviceAccountName: {{ template "nais-logd.fullname" . }}
       nodeSelector:
         nais.io/type: worker
       containers:
-      - name: nais-logd
+      - name: {{ template "nais-logd.name" . }}
         image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
         env:
           - name: ELASTICSEARCH_HOST

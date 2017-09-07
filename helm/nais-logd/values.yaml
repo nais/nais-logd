@@ -1,3 +1,6 @@
+server:
+  name: nais-logd
+
 image:
   repository: navikt/nais-logd
   tag: 6
