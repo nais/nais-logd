@@ -3,15 +3,17 @@ server:
 
 image:
   repository: navikt/nais-logd
-  tag: 9
+  tag: 10
 elasticsearch:
   host: elasticsearch-logging
   port: 9200
+  index-prefix: logstash-apps-test
   # ip addresses to elasticsearch ingest nodes
   ip:
     - 1.2.3.4
-environment:
-  type: test
+cluster:
+  name: kubernetes
+  envclass: t
 
 configFiles:
   fluent.conf: |-
@@ -46,6 +48,13 @@ configFiles:
       map4 new_record["@timestamp"] = time.iso8601(9) unless new_record.has_key?("@timestamp")
       map5 new_record["message"] = new_record["log"] unless new_record.has_key?("message")
       map6 new_record.delete("log")
+    </filter>
+
+    <filter **>
+      @type record_map
+      map1 new_record = record
+      map2 new_record["cluster"] = "#{ENV['CLUSTER_NAME']}"
+      map3 new_record["envclass"] = "#{ENV['CLUSTER_ENVCLASS']}"
     </filter>
 
     <filter **>
@@ -88,7 +97,7 @@ configFiles:
       host "#{ENV['ELASTICSEARCH_HOST']}"
       port "#{ENV['ELASTICSEARCH_PORT']}"
       type_name containerlog
-      logstash_prefix "logstash-apps-#{ENV['ENV_CLASS']}"
+      logstash_prefix "#{ENV['ELASTICSEARCH_INDEX_PREFIX']}"
       logstash_format true
       buffer_chunk_limit 2M
       buffer_queue_limit 32

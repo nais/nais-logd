@@ -23,8 +23,12 @@ spec:
             value: "{{ .Values.elasticsearch.host }}"
           - name: ELASTICSEARCH_PORT
             value: "{{ .Values.elasticsearch.port }}"
-          - name: ENV_TYPE
-            value: "{{ .Values.environment.type }}"
+          - name: ELASTICSEARCH_INDEX_PREFIX
+            value: "{{ .Values.elasticsearch.index-prefix }}"
+          - name: CLUSTER_NAME
+            value: "{{ .Values.cluster.name }}"
+          - name: CLUSTER_ENVCLASS
+            value: "{{ .Values.cluster.envclass }}"
         volumeMounts:
           - name: config-volume
             mountPath: /fluentd/etc
