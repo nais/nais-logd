@@ -24,7 +24,7 @@ spec:
           - name: ELASTICSEARCH_PORT
             value: "{{ .Values.elasticsearch.port }}"
           - name: ELASTICSEARCH_INDEX_PREFIX
-            value: "{{ .Values.elasticsearch.index-prefix }}"
+            value: "{{ .Values.elasticsearch.index_prefix }}"
           - name: CLUSTER_NAME
             value: "{{ .Values.cluster.name }}"
           - name: CLUSTER_ENVCLASS
