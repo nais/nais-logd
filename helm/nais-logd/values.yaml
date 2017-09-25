@@ -3,7 +3,7 @@ server:
 
 image:
   repository: navikt/nais-logd
-  tag: 11
+  tag: 12
 elasticsearch:
   host: elasticsearch-logging
   port: 9200
