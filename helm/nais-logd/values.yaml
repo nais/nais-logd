@@ -3,7 +3,7 @@ server:
 
 image:
   repository: navikt/nais-logd
-  tag: 10
+  tag: 11
 elasticsearch:
   host: elasticsearch-logging
   port: 9200
@@ -15,95 +15,7 @@ cluster:
   name: kubernetes
   envclass: t
 
-configFiles:
-  fluent.conf: |-
-    <match fluent.**>
-      @type null
-    </match>
-
-    <source>
-      @type tail
-      path /var/log/containers/*.log
-      pos_file "#{ENV['LOGD_POS_FILE_DIR']}/es-containers.log.pos"
-      time_format %Y-%m-%dT%H:%M:%S.%NZ
-      tag kubernetes.*
-      format json
-      read_from_head true
-    </source>
-
-    <match kubernetes.var.log.containers.**nais-logd**>
-      @type null
-    </match>
-
-    <filter kubernetes.**>
-      @type kubernetes_metadata
-      preserve_json_log false
-    </filter>
-
-    <filter **>
-      @type record_map
-      map1 new_record = record
-      map2 new_record["type"] = "containerlog"
-      map3 new_record["received_at"] = Time.new.iso8601(9)
-      map4 new_record["@timestamp"] = new_record.delete("timestamp") if !new_record.has_key?("@timestamp") && new_record.has_key?("timestamp")
-      map5 new_record["@timestamp"] = time.iso8601(9) unless new_record.has_key?("@timestamp")
-      map6 new_record["message"] = new_record.delete("log") unless new_record.has_key?("message")
-    </filter>
-
-    <filter **>
-      @type record_map
-      map1 new_record = record
-      map2 new_record["cluster"] = "#{ENV['CLUSTER_NAME']}"
-      map3 new_record["envclass"] = "#{ENV['CLUSTER_ENVCLASS']}"
-    </filter>
-
-    <filter **>
-      @type record_map
-      map1 new_record = record
-      map2 new_record["container"] = new_record["docker"]["container_id"]
-      map3 new_record.delete("docker")
-      map4 new_record["host"] = new_record["kubernetes"]["host"]
-      map5 new_record["namespace"] = new_record["kubernetes"]["namespace_name"]
-      map6 new_record["application"] = new_record["kubernetes"]["container_name"]
-      map7 new_record["pod"] = new_record["kubernetes"]["pod_name"]
-      map8 new_record.delete("kubernetes")
-    </filter>
-
-    <filter **>
-      @type record_map
-      map1 new_record = record
-      map2 new_record["thread"] = new_record.delete("thread_name") if new_record.has_key?("thread_name")
-      map3 new_record["component"] = new_record.delete("logger_name") if new_record.has_key?("logger_name")
-      map4 new_record["category"] = new_record.delete("stream") if new_record.has_key?("stream")
-      map5 new_record["level"].capitalize! if new_record.has_key?("level")
-      map6 new_record.delete("level_value")
-    </filter>
-
-    <filter **>
-      @type record_map
-      map1 def hash_flatten(hash, path = ""); hash.each_with_object({}) do |(k, v), ret| key = path + k.to_s; if v.is_a? Hash then ret.merge! hash_flatten(v, key.to_s + "_") else ret[key] = v end end end
-      map2 hash_flatten(record).each{|k,v| if k =~ /^(?:@timestamp|@version|type|received_at|message|container|host|namespace|application|pod|thread|component|category|level|stack_trace|cluster|envclass)$/ then new_record[k] = v else new_record["x_"+k.tr('.','_')] = v end }
-    </filter>
-
-    <filter **>
-      @type record_map
-      map1 new_record = record
-      map2 exps = (new_record["message"].to_s+" "+new_record["stack_trace"].to_s).scan(/\b[A-Z]\w+Exception\b/)
-      map3 if exps.any? then exps.uniq!; new_record["exception"] = exps.size == 1 ? exps.first : exps end
-    </filter>
-
-    <match **>
-      @type elasticsearch
-      include_tag_key false
-      host "#{ENV['ELASTICSEARCH_HOST']}"
-      port "#{ENV['ELASTICSEARCH_PORT']}"
-      type_name containerlog
-      logstash_prefix "#{ENV['ELASTICSEARCH_INDEX_PREFIX']}"
-      logstash_format true
-      buffer_chunk_limit 2M
-      buffer_queue_limit 32
-      flush_interval 5s
-      max_retry_wait 30
-      disable_retry_limit
-      num_threads 8
-    </match>
+# Add to override conf file in docker image
+# configFiles:
+#   fluent.conf: |-
+#      foobar
