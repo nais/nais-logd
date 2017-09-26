@@ -2,13 +2,16 @@ apiVersion: extensions/v1beta1
 kind: DaemonSet
 metadata:
   name: {{ template "nais-logd.fullname" . }}
+  labels:
+    app: {{ template "nais-logd.name" . }}
+    chart: {{ .Chart.Name }}-{{ .Chart.Version }}
+    heritage: {{ .Release.Service }}
+    release: {{ .Release.Name }}
 spec:
   template:
     metadata:
       labels:
         app: {{ template "nais-logd.name" . }}
-        chart: {{ .Chart.Name }}-{{ .Chart.Version }}
-        heritage: {{ .Release.Service }}
         release: {{ .Release.Name }}
     spec:
       serviceAccountName: {{ template "nais-logd.fullname" . }}
