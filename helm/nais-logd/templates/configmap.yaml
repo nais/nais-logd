@@ -5,7 +5,6 @@ metadata:
   labels:
     app: {{ template "nais-logd.name" . }}
     chart: {{ .Chart.Name }}-{{ .Chart.Version }}
-    component: "{{ .Values.server.name }}"
     heritage: {{ .Release.Service }}
     release: {{ .Release.Name }}
   name: {{ template "nais-logd.fullname" . }}
