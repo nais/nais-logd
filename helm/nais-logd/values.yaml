@@ -1,6 +1,6 @@
 image:
   repository: navikt/nais-logd
-  tag: 15
+  tag: 16
 elasticsearch:
   host: elasticsearch-logging
   port: 9200
@@ -15,4 +15,6 @@ cluster:
 # Add to override conf file in docker image
 # configFiles:
 #   fluent.conf: |-
-#      foobar
+#     <match **>
+#       @type ...
+#     </match>
