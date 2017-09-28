@@ -12,6 +12,7 @@ RUN apk add --update --virtual .build-deps sudo build-base ruby-dev \
            /usr/lib/ruby/2.3.0/gems/cache/*.gem
 
 ENV FLUENT_UID 0
+ENV FLUENTD_OPT -q
 ENV LOGD_POS_FILE_DIR /var/log
 ENV ELASTICSEARCH_HOST elasticsearch-logging
 ENV ELASTICSEARCH_PORT 9200
