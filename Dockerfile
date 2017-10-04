@@ -4,7 +4,7 @@ LABEL maintainer "terje.sannum@nav.no"
 RUN apk add --update --virtual .build-deps sudo build-base ruby-dev \
  && sudo gem install --no-document fluent-plugin-kubernetes_metadata_filter -v 0.29.0 \
  && sudo gem install --no-document fluent-plugin-elasticsearch -v 1.10.0 \
- && sudo gem install --no-document nais-log-parser -v 0.12.0 \
+ && sudo gem install --no-document nais-log-parser -v 0.12.1 \
  && sudo gem install --no-document fluent-plugin-nais -v 0.9.0 \
  && sudo gem sources --clear-all \
  && apk del .build-deps \
