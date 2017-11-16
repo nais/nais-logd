@@ -14,8 +14,7 @@ RUN apk add --update --virtual .build-deps sudo build-base ruby-dev \
 ENV FLUENT_UID 0
 ENV FLUENTD_OPT -q
 ENV LOGD_POS_FILE_DIR /var/log
-ENV ELASTICSEARCH_HOST elasticsearch-logging
-ENV ELASTICSEARCH_PORT 9200
+ENV ELASTICSEARCH_HOSTS elasticsearch-logging:9200
 ENV ELASTICSEARCH_INDEX_PREFIX logstash-apps-test
 ENV CLUSTER_NAME kubernetes
 ENV CLUSTER_ENVCLASS t
