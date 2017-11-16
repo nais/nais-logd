@@ -1,13 +1,9 @@
 image:
   repository: navikt/nais-logd
-  tag: 41
+  tag: 42
 elasticsearch:
-  host: elasticsearch-logging
-  port: 9200
+  hosts: elasticsearch-logging:9200
   index_prefix: logstash-apps-test
-  # ip addresses to elasticsearch ingest nodes
-  ip:
-    - 1.2.3.4
 cluster:
   name: kubernetes
   envclass: t

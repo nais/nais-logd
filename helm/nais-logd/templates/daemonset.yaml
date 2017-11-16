@@ -15,16 +15,12 @@ spec:
         release: {{ .Release.Name }}
     spec:
       serviceAccountName: {{ template "nais-logd.fullname" . }}
-      nodeSelector:
-        nais.io/type: worker
       containers:
       - name: {{ template "nais-logd.name" . }}
         image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
         env:
-          - name: ELASTICSEARCH_HOST
-            value: "{{ .Values.elasticsearch.host }}"
-          - name: ELASTICSEARCH_PORT
-            value: "{{ .Values.elasticsearch.port }}"
+          - name: ELASTICSEARCH_HOSTS
+            value: "{{ .Values.elasticsearch.hosts }}"
           - name: ELASTICSEARCH_INDEX_PREFIX
             value: "{{ .Values.elasticsearch.index_prefix }}"
           - name: CLUSTER_NAME
@@ -42,6 +38,12 @@ spec:
             mountPath: /var/lib/docker/containers
             readOnly: true
       terminationGracePeriodSeconds: 30
+      tolerations:
+        - operator: Exists
+          effect: NoExecute
+        - key: node.alpha.kubernetes.io/ismaster
+          operator: Equal
+          effect: NoSchedule
       volumes:
 {{- if .Values.configFiles }}
         - name: config-volume
