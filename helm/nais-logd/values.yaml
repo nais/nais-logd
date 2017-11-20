@@ -1,12 +1,22 @@
-image:
-  repository: navikt/nais-logd
-  tag: 42
+fluentd:
+  name: fluentd
+  image:
+    repository: navikt/nais-logd
+    tag: 43
+    pullPolicy: IfNotPresent
 elasticsearch:
   hosts: elasticsearch-logging:9200
   index_prefix: logstash-apps-test
 cluster:
   name: kubernetes
   envclass: t
+kubewatch:
+  enable: true
+  name: kubewatch
+  image:
+    repository: softonic/kubewatch
+    tag: v0.3.3
+    pullPolicy: IfNotPresent
 
 # Add to override conf file in docker image
 # configFiles:

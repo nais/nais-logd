@@ -1,10 +1,11 @@
 apiVersion: extensions/v1beta1
 kind: DaemonSet
 metadata:
-  name: {{ template "nais-logd.fullname" . }}
+  name: {{ template "nais-logd.fluentd.fullname" . }}
   labels:
     app: {{ template "nais-logd.name" . }}
     chart: {{ .Chart.Name }}-{{ .Chart.Version }}
+    component: "{{ .Values.fluentd.name }}"
     heritage: {{ .Release.Service }}
     release: {{ .Release.Name }}
 spec:
@@ -12,12 +13,14 @@ spec:
     metadata:
       labels:
         app: {{ template "nais-logd.name" . }}
+        component: "{{ .Values.fluentd.name }}"
         release: {{ .Release.Name }}
     spec:
       serviceAccountName: {{ template "nais-logd.fullname" . }}
       containers:
-      - name: {{ template "nais-logd.name" . }}
-        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+      - name: {{ template "nais-logd.name" . }}-{{ .Values.fluentd.name }}
+        image: "{{ .Values.fluentd.image.repository }}:{{ .Values.fluentd.image.tag }}"
+        imagePullPolicy: "{{ .Values.fluentd.image.pullPolicy }}"
         env:
           - name: ELASTICSEARCH_HOSTS
             value: "{{ .Values.elasticsearch.hosts }}"
@@ -40,10 +43,6 @@ spec:
       terminationGracePeriodSeconds: 30
       tolerations:
         - operator: Exists
-          effect: NoExecute
-        - key: node.alpha.kubernetes.io/ismaster
-          operator: Equal
-          effect: NoSchedule
       volumes:
 {{- if .Values.configFiles }}
         - name: config-volume

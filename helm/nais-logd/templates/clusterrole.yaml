@@ -9,5 +9,5 @@ metadata:
   name: {{ template "nais-logd.fullname" . }}
 rules:
   - apiGroups: [""]
-    resources: ["pods", "namespaces"]
+    resources: ["pods", "namespaces", "events"]
     verbs: ["get", "watch", "list"]

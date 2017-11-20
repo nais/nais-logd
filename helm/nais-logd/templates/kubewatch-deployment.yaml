@@ -1,0 +1,31 @@
+{{- if .Values.kubewatch.enable -}}
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: {{ template "nais-logd.kubewatch.fullname" . }}
+  labels:
+    app: {{ template "nais-logd.name" . }}
+    chart: {{ .Chart.Name }}-{{ .Chart.Version }}
+    component: "{{ .Values.kubewatch.name }}"
+    heritage: {{ .Release.Service }}
+    release: {{ .Release.Name }}
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: {{ template "nais-logd.name" . }}
+        component: "{{ .Values.kubewatch.name }}"
+        release: {{ .Release.Name }}
+    spec:
+      serviceAccountName: {{ template "nais-logd.fullname" . }}
+      nodeSelector:
+        nais.io/type: worker
+      containers:
+      - name: {{ .Values.kubewatch.name }}
+        image: "{{ .Values.kubewatch.image.repository }}:{{ .Values.kubewatch.image.tag }}"
+        imagePullPolicy: "{{ .Values.kubewatch.image.pullPolicy }}"
+        args:
+          - events
+      terminationGracePeriodSeconds: 30
+{{- end }}
