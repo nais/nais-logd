@@ -2,7 +2,7 @@ fluentd:
   name: fluentd
   image:
     repository: navikt/nais-logd
-    tag: 49
+    tag: 50
     pullPolicy: IfNotPresent
 elasticsearch:
   hosts: elasticsearch-logging:9200
