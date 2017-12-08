@@ -35,11 +35,11 @@ spec:
           - name: config-volume
             mountPath: /fluentd/etc
 {{- end }}
-          - name: varlog
-            mountPath: /var/log
-          - name: varlibdockercontainers
-            mountPath: /var/lib/docker/containers
-            readOnly: true
+{{- range $volume := .Values.volumes }}
+          - name: "{{ $volume.name }}"
+            mountPath: "{{ $volume.mountPath }}"
+            readOnly: {{ $volume.readOnly }}
+{{- end }}
       terminationGracePeriodSeconds: 30
       tolerations:
         - operator: Exists
@@ -49,9 +49,8 @@ spec:
           configMap:
             name: {{ template "nais-logd.fullname" . }}
 {{- end }}
-        - name: varlog
+{{- range $volume := .Values.volumes }}
+        - name: "{{ $volume.name }}"
           hostPath:
-            path: /var/log
-        - name: varlibdockercontainers
-          hostPath:
-            path: /var/lib/docker/containers
+            path: "{{ $volume.hostPath }}"
+{{- end }}

@@ -17,7 +17,21 @@ kubewatch:
     repository: softonic/kubewatch
     tag: v0.3.3
     pullPolicy: IfNotPresent
-
+volumes:
+  - name: varlog
+    mountPath: /var/log
+    hostPath: /var/log
+    readOnly: false
+  - name: varlibdockercontainers
+    mountPath: /var/lib/docker/containers
+    hostPath: /var/lib/docker/containers
+    readOnly: true
+# Add to make logs available in minikube
+#   - name: sda1
+#      mountPath: /mnt/sda1
+#      hostPath: /mnt/sda1
+#      readOnly: true
+    
 # Add to override conf file in docker image
 # configFiles:
 #   fluent.conf: |-
