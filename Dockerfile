@@ -4,6 +4,7 @@ LABEL maintainer "terje.sannum@nav.no"
 RUN apk add --update --virtual .build-deps sudo build-base ruby-dev \
  && sudo gem install --no-document fluent-plugin-kubernetes_metadata_filter -v 1.0.1 \
  && sudo gem install --no-document fluent-plugin-elasticsearch -v 2.6.0 \
+ && sudo gem install --no-document fluent-plugin-prometheus -v 1.0.1 \
  && sudo gem install --no-document nais-log-parser -v 0.20.0 \
  && sudo gem install --no-document fluent-plugin-nais -v 0.20.0 \
  && sudo gem sources --clear-all \

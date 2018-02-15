@@ -15,6 +15,10 @@ spec:
         app: {{ template "nais-logd.name" . }}
         component: "{{ .Values.fluentd.name }}"
         release: {{ .Release.Name }}
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "9000"
+        prometheus.io/path: "/metrics"
     spec:
       serviceAccountName: {{ template "nais-logd.fullname" . }}
       containers:
@@ -30,6 +34,10 @@ spec:
             value: "{{ .Values.cluster.name }}"
           - name: CLUSTER_ENVCLASS
             value: "{{ .Values.cluster.envclass }}"
+        ports:
+          - name: metrics
+            containerPort: 9000
+            protocol: TCP
         volumeMounts:
 {{- if .Values.configFiles }}
           - name: config-volume
