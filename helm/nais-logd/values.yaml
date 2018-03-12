@@ -2,8 +2,9 @@ fluentd:
   name: fluentd
   image:
     repository: navikt/nais-logd
-    tag: 53
+    tag: 54
     pullPolicy: IfNotPresent
+  updateStrategy: RollingUpdate
 elasticsearch:
   hosts: elasticsearch-logging:9200
   index_prefix: logstash-apps-test

@@ -9,6 +9,8 @@ metadata:
     heritage: {{ .Release.Service }}
     release: {{ .Release.Name }}
 spec:
+  updateStrategy:
+    type: "{{ .Values.fluentd.updateStrategy }}"
   template:
     metadata:
       labels:
