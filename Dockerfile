@@ -6,8 +6,8 @@ RUN apk add --update --virtual .build-deps sudo build-base ruby-dev \
  && sudo gem install --no-document fluent-plugin-kubernetes_metadata_filter -v 2.1.2 \
  && sudo gem install --no-document fluent-plugin-elasticsearch -v 2.10.1 \
  && sudo gem install --no-document /tmp/fluent-plugin-prometheus-1.1.0.gem \
- && sudo gem install --no-document nais-log-parser -v 0.20.0 \
- && sudo gem install --no-document fluent-plugin-nais -v 0.20.0 \
+ && sudo gem install --no-document nais-log-parser -v 0.22.0 \
+ && sudo gem install --no-document fluent-plugin-nais -v 0.21.0 \
  && sudo gem sources --clear-all \
  && apk del .build-deps \
  && rm -rf /var/cache/apk/* \
