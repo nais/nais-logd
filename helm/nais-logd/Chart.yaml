@@ -1,7 +1,7 @@
 apiVersion: v1
 name: nais-logd
 description: NAIS log daemon
-version: 1.32.0
+version: 1.33.0
 sources:
   - https://github.com/nais/nais-logd
 maintainers:
