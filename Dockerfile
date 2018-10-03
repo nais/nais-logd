@@ -1,14 +1,14 @@
-FROM fluent/fluentd:v1.2.3
+FROM fluent/fluentd:v1.2.5
 LABEL maintainer "terje.sannum@nav.no"
 
 COPY fluent-plugin-prometheus-1.1.1.gem /tmp/
 RUN apk add --update --virtual .build-deps sudo build-base ruby-dev \
- && sudo gem install --no-document fluent-plugin-kubernetes_metadata_filter -v 2.1.2 \
- && sudo gem install --no-document fluent-plugin-elasticsearch -v 2.11.3 \
+ && sudo gem install --no-document fluent-plugin-kubernetes_metadata_filter -v 2.1.3 \
+ && sudo gem install --no-document fluent-plugin-elasticsearch -v 2.11.10 \
  && sudo gem install --no-document /tmp/fluent-plugin-prometheus-1.1.1.gem \
  && sudo gem install --no-document logfmt -v 0.0.8 \
- && sudo gem install --no-document nais-log-parser -v 0.30.0 \
- && sudo gem install --no-document fluent-plugin-nais -v 0.30.0 \
+ && sudo gem install --no-document nais-log-parser -v 0.31.0 \
+ && sudo gem install --no-document fluent-plugin-nais -v 0.31.0 \
  && sudo gem sources --clear-all \
  && apk del .build-deps \
  && rm -rf /var/cache/apk/* \
