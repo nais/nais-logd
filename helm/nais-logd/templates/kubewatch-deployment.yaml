@@ -19,8 +19,6 @@ spec:
         release: {{ .Release.Name }}
     spec:
       serviceAccountName: {{ template "nais-logd.fullname" . }}
-      nodeSelector:
-        nais.io/type: worker
       containers:
       - name: {{ .Values.kubewatch.name }}
         image: "{{ .Values.kubewatch.image.repository }}:{{ .Values.kubewatch.image.tag }}"
