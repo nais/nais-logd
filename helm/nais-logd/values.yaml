@@ -2,7 +2,7 @@ fluentd:
   name: fluentd
   image:
     repository: navikt/nais-logd
-    tag: 71
+    tag: 72
     pullPolicy: IfNotPresent
   updateStrategy: RollingUpdate
 elasticsearch:
@@ -27,11 +27,6 @@ volumes:
     mountPath: /var/lib/docker/containers
     hostPath: /var/lib/docker/containers
     readOnly: true
-# Add to make logs available in minikube
-#   - name: sda1
-#      mountPath: /mnt/sda1
-#      hostPath: /mnt/sda1
-#      readOnly: true
     
 # Add to override conf file in docker image
 # configFiles:

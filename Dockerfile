@@ -4,7 +4,7 @@ LABEL maintainer "terje.sannum@nav.no"
 COPY fluent-plugin-prometheus-1.1.1.gem /tmp/
 RUN apk add --update --virtual .build-deps sudo build-base ruby-dev \
  && sudo gem install --no-document fluent-plugin-kubernetes_metadata_filter -v 2.1.4 \
- && sudo gem install --no-document fluent-plugin-elasticsearch -v 2.11.11 \
+ && sudo gem install --no-document fluent-plugin-elasticsearch -v 2.12.0 \
  && sudo gem install --no-document /tmp/fluent-plugin-prometheus-1.1.1.gem \
  && sudo gem install --no-document logfmt -v 0.0.8 \
  && sudo gem install --no-document nais-log-parser -v 0.31.0 \
