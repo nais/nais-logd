@@ -2,7 +2,7 @@ fluentd:
   name: fluentd
   image:
     repository: navikt/nais-logd
-    tag: 72
+    tag: 73
     pullPolicy: IfNotPresent
   updateStrategy: RollingUpdate
 elasticsearch:
@@ -18,6 +18,11 @@ kubewatch:
     repository: softonic/kubewatch
     tag: v0.3.3
     pullPolicy: IfNotPresent
+throttle:
+  bucket_period: 30
+  bucket_limit: 6000
+  reset_rate: 100
+  drop_logs: true
 volumes:
   - name: varlog
     mountPath: /var/log

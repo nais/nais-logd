@@ -36,6 +36,14 @@ spec:
             value: "{{ .Values.cluster.name }}"
           - name: CLUSTER_ENVCLASS
             value: "{{ .Values.cluster.envclass }}"
+          - name: THROTTLE_BUCKET_PERIOD
+            value: "{{ .Values.throttle.bucket_period }}"
+          - name: THROTTLE_BUCKET_LIMIT
+            value: "{{ .Values.throttle.bucket_limit }}"
+          - name: THROTTLE_RESET_RATE
+            value: "{{ .Values.throttle.reset_rate }}"
+          - name: THROTTLE_DROP_LOGS
+            value: "{{ .Values.throttle.drop_logs }}"
         ports:
           - name: metrics
             containerPort: 9000
