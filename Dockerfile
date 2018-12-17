@@ -1,4 +1,4 @@
-FROM fluent/fluentd:v1.3.1
+FROM fluent/fluentd:v1.3.2
 LABEL maintainer "terje.sannum@nav.no"
 
 # Prometheus plugin with pr 47
@@ -8,14 +8,14 @@ COPY fluent-plugin-prometheus-1.2.1.gem /tmp/
 # https://github.com/terjesannum/fluent-plugin-throttle/tree/nais-patches
 COPY fluent-plugin-throttle-0.0.3.gem /tmp/
 RUN apk add --update --virtual .build-deps sudo build-base ruby-dev \
- && sudo gem install --no-document fluent-plugin-kubernetes_metadata_filter -v 2.1.4 \
- && sudo gem install --no-document fluent-plugin-elasticsearch -v 2.12.4 \
+ && sudo gem install --no-document fluent-plugin-kubernetes_metadata_filter -v 2.1.6 \
+ && sudo gem install --no-document fluent-plugin-elasticsearch -v 2.12.5 \
  && sudo gem install --no-document /tmp/fluent-plugin-throttle-0.0.3.gem \
  && sudo gem install --no-document fluent-plugin-rewrite-tag-filter -v 2.1.1 \
  && sudo gem install --no-document /tmp/fluent-plugin-prometheus-1.2.1.gem \
  && sudo gem install --no-document logfmt -v 0.0.8 \
- && sudo gem install --no-document nais-log-parser -v 0.31.0 \
- && sudo gem install --no-document fluent-plugin-nais -v 0.32.0 \
+ && sudo gem install --no-document nais-log-parser -v 0.32.0 \
+ && sudo gem install --no-document fluent-plugin-nais -v 0.33.0 \
  && sudo gem sources --clear-all \
  && apk del .build-deps \
  && rm -rf /var/cache/apk/* \
