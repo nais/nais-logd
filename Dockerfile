@@ -14,7 +14,7 @@ RUN apk add --update --virtual .build-deps sudo build-base ruby-dev \
  && sudo gem install --no-document fluent-plugin-rewrite-tag-filter -v 2.1.1 \
  && sudo gem install --no-document /tmp/fluent-plugin-prometheus-1.2.1.gem \
  && sudo gem install --no-document logfmt -v 0.0.8 \
- && sudo gem install --no-document nais-log-parser -v 0.32.0 \
+ && sudo gem install --no-document nais-log-parser -v 0.32.2 \
  && sudo gem install --no-document fluent-plugin-nais -v 0.33.0 \
  && sudo gem sources --clear-all \
  && apk del .build-deps \
