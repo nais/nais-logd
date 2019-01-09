@@ -2,7 +2,7 @@ fluentd:
   name: fluentd
   image:
     repository: navikt/nais-logd
-    tag: 77
+    tag: 78
     pullPolicy: IfNotPresent
   updateStrategy: RollingUpdate
 elasticsearch:
