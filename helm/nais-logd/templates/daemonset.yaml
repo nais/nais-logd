@@ -25,7 +25,11 @@ spec:
       serviceAccountName: {{ template "nais-logd.fullname" . }}
       containers:
       - name: {{ template "nais-logd.name" . }}-{{ .Values.fluentd.name }}
+        {{- if .Values.fluentd.image.digest }}
+        image: "{{ .Values.fluentd.image.repository }}@{{ .Values.fluentd.image.digest }}"
+        {{- else }}
         image: "{{ .Values.fluentd.image.repository }}:{{ .Values.fluentd.image.tag }}"
+        {{- end }}
         imagePullPolicy: "{{ .Values.fluentd.image.pullPolicy }}"
         env:
           - name: ELASTICSEARCH_HOSTS

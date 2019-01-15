@@ -2,7 +2,8 @@ fluentd:
   name: fluentd
   image:
     repository: navikt/nais-logd
-    tag: 78
+#    tag: 78
+    digest: sha256:8acf93f846c6f7600d15efab45ebd6795ed6595a5180bd38a6c591be2c6534a1
     pullPolicy: IfNotPresent
   updateStrategy: RollingUpdate
 elasticsearch:
@@ -16,7 +17,8 @@ kubewatch:
   name: kubewatch
   image:
     repository: softonic/kubewatch
-    tag: v0.3.3
+#    tag: v0.3.3
+    digest: sha256:5fb7150eb75339af8259de14ec7438ce6b290bbd6e43425c27dc97263c565e6d
     pullPolicy: IfNotPresent
 throttle:
   bucket_period: 60

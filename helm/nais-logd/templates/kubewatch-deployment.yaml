@@ -21,7 +21,11 @@ spec:
       serviceAccountName: {{ template "nais-logd.fullname" . }}
       containers:
       - name: {{ .Values.kubewatch.name }}
+        {{- if .Values.kubewatch.image.digest }}
+        image: "{{ .Values.kubewatch.image.repository }}@{{ .Values.kubewatch.image.digest }}"
+        {{- else }}
         image: "{{ .Values.kubewatch.image.repository }}:{{ .Values.kubewatch.image.tag }}"
+        {{- end }}
         imagePullPolicy: "{{ .Values.kubewatch.image.pullPolicy }}"
         args:
           - events
