@@ -16,8 +16,8 @@ RUN buildDeps='ruby-dev g++ make' \
  && gem install --no-document /tmp/fluent-plugin-prometheus-1.2.1.gem \
  && gem install --no-document fluent-plugin-systemd -v 1.0.1 \
  && gem install --no-document logfmt -v 0.0.8 \
- && gem install --no-document nais-log-parser -v 0.34.6 \
- && gem install --no-document fluent-plugin-nais -v 0.35.0 \
+ && gem install --no-document nais-log-parser -v 0.35.0 \
+ && gem install --no-document fluent-plugin-nais -v 0.36.0 \
  && gem sources --clear-all \
  && rm -rf /usr/lib/ruby/gems/*/cache/*.gem \
  && apt-get purge -y --auto-remove $buildDeps
