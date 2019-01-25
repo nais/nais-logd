@@ -2,8 +2,8 @@ fluentd:
   name: fluentd
   image:
     repository: navikt/nais-logd
-#    tag: 81
-    digest: sha256:6c6a987f2754ad26018019fa2a6b6e3e1b29e7dbd22764106a65e5a2c96db532
+#    tag: 82
+    digest: sha256:e10d2cf9e0654350bc0334bca16c15bf75091b200e4181e54288009550282de5
     pullPolicy: IfNotPresent
   updateStrategy: RollingUpdate
 elasticsearch:
