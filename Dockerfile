@@ -24,7 +24,8 @@ RUN buildDeps='ruby-dev g++ make' \
 
 ENV FLUENT_UID 0
 ENV FLUENTD_OPT -q
-ENV LOGD_POS_FILE_DIR /var/log
+ENV FLUENTD_CONTAINERS_POS_FILE /var/log/es-containers.log.pos
+ENV FLUENTD_JOURNAL_POS_FILE /var/log/journald.log.pos
 ENV ELASTICSEARCH_HOSTS elasticsearch-logging:9200
 ENV ELASTICSEARCH_INDEX_PREFIX logstash-apps-test
 ENV ELASTICSEARCH_MAX_RETRIES 0

@@ -38,6 +38,10 @@ spec:
             value: "{{ .Values.elasticsearch.index_prefix }}"
           - name: ELASTICSEARCH_MAX_RETRIES
             value: "{{ .Values.elasticsearch.max_retries }}"
+          - name: FLUENTD_CONTAINERS_POS_FILE
+            value: "{{ .Values.fluentd.pos_file.containers }}"
+          - name: FLUENTD_JOURNAL_POS_FILE
+            value: "{{ .Values.fluentd.pos_file.journal }}"
           - name: CLUSTER_NAME
             value: "{{ .Values.cluster.name }}"
           - name: CLUSTER_ENVCLASS
