@@ -2,8 +2,8 @@ fluentd:
   name: fluentd
   image:
     repository: navikt/nais-logd
-#    tag: 85
-    digest: sha256:24f81c445f9ad5c517417062a1875b3678ebd5789e5845e709b2ff1abbddf651
+#    tag: 86
+    digest: sha256:cfdbcacb892606985a043141c9c4ffd984ded93ad0adea1385184739c8940f18
     pullPolicy: IfNotPresent
   updateStrategy: RollingUpdate
   pos_file:
@@ -12,6 +12,7 @@ fluentd:
 elasticsearch:
   hosts: elasticsearch-logging:9200
   index_prefix: logstash-apps-test
+  type_name: containerlog
   max_retries: 0
 cluster:
   name: kubernetes

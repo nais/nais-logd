@@ -36,6 +36,8 @@ spec:
             value: "{{ .Values.elasticsearch.hosts }}"
           - name: ELASTICSEARCH_INDEX_PREFIX
             value: "{{ .Values.elasticsearch.index_prefix }}"
+          - name: ELASTICSEARCH_TYPE_NAME
+            value: "{{ .Values.elasticsearch.type_name }}"
           - name: ELASTICSEARCH_MAX_RETRIES
             value: "{{ .Values.elasticsearch.max_retries }}"
           - name: FLUENTD_CONTAINERS_POS_FILE
