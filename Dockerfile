@@ -23,7 +23,6 @@ RUN buildDeps='ruby-dev g++ make' \
  && rm -rf /usr/lib/ruby/gems/*/cache/*.gem \
  && apt-get purge -y --auto-remove $buildDeps
 
-ENV FLUENTD_OPT -q
 ENV FLUENTD_CONTAINERS_POS_FILE /var/log/es-containers.log.pos
 ENV FLUENTD_JOURNAL_POS_FILE /var/log/journald.log.pos
 ENV ELASTICSEARCH_HOSTS elasticsearch-logging:9200
