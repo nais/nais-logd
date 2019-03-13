@@ -2,8 +2,8 @@ fluentd:
   name: fluentd
   image:
     repository: navikt/nais-logd
-#    tag: 86
-    digest: sha256:cfdbcacb892606985a043141c9c4ffd984ded93ad0adea1385184739c8940f18
+#    tag: 92
+    digest: sha256:66146e3c1a48dee9cfa10ae5933e11835d04e26e44bc6e03c882d85a9d587da9
     pullPolicy: IfNotPresent
   updateStrategy: RollingUpdate
   pos_file:
@@ -11,7 +11,9 @@ fluentd:
     journal: /var/log/journald.log.pos
 elasticsearch:
   hosts: elasticsearch-logging:9200
-  index_prefix: logstash-apps-test
+  index_name: logstash-apps-test
+  logstash_format: true
+  logstash_prefix: logstash-apps-test
   type_name: containerlog
   max_retries: 0
 cluster:

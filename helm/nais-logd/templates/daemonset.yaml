@@ -34,8 +34,12 @@ spec:
         env:
           - name: ELASTICSEARCH_HOSTS
             value: "{{ .Values.elasticsearch.hosts }}"
-          - name: ELASTICSEARCH_INDEX_PREFIX
-            value: "{{ .Values.elasticsearch.index_prefix }}"
+          - name: ELASTICSEARCH_INDEX_NAME
+            value: "{{ .Values.elasticsearch.index_name }}"
+          - name: ELASTICSEARCH_LOGSTASH_FORMAT
+            value: "{{ .Values.elasticsearch.logstash_format }}"
+          - name: ELASTICSEARCH_LOGSTASH_PREFIX
+            value: "{{ .Values.elasticsearch.logstash_prefix }}"
           - name: ELASTICSEARCH_TYPE_NAME
             value: "{{ .Values.elasticsearch.type_name }}"
           - name: ELASTICSEARCH_MAX_RETRIES
