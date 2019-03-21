@@ -24,9 +24,13 @@ RUN buildDeps='ruby-dev g++ make' \
  && rm -rf /usr/lib/ruby/gems/*/cache/*.gem \
  && apt-get purge -y --auto-remove $buildDeps
 
+EXPOSE 9000
+
 ENV FLUENTD_CONTAINERS_POS_FILE /var/log/es-containers.log.pos
 ENV FLUENTD_JOURNAL_POS_FILE /var/log/journald.log.pos
 ENV ELASTICSEARCH_HOSTS elasticsearch-logging:9200
+ENV ELASTICSEARCH_SCHEME http
+ENV ELASTICSEARCH_SSL_VERIFY true
 ENV ELASTICSEARCH_INDEX_NAME logstash-apps-test
 ENV ELASTICSEARCH_LOGSTASH_FORMAT true
 ENV ELASTICSEARCH_LOGSTASH_PREFIX logstash-apps-test

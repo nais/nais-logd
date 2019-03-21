@@ -34,6 +34,10 @@ spec:
         env:
           - name: ELASTICSEARCH_HOSTS
             value: "{{ .Values.elasticsearch.hosts }}"
+          - name: ELASTICSEARCH_SCHEME
+            value: "{{ .Values.elasticsearch.scheme }}"
+          - name: ELASTICSEARCH_SSL_VERIFY
+            value: "{{ .Values.elasticsearch.ssl_verify }}"
           - name: ELASTICSEARCH_INDEX_NAME
             value: "{{ .Values.elasticsearch.index_name }}"
           - name: ELASTICSEARCH_LOGSTASH_FORMAT
