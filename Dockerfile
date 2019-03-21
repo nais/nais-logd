@@ -1,20 +1,20 @@
-FROM fluent/fluentd:v1.4.0-debian-1.0
+FROM fluent/fluentd:v1.4.1-debian-1.0
 LABEL maintainer "terje.sannum@nav.no"
 
 USER root
 # Prometheus plugin with pr 47
-# https://github.com/terjesannum/fluent-plugin-prometheus/tree/patch-v1.2.1
-COPY fluent-plugin-prometheus-1.2.1.gem /tmp/
+# https://github.com/terjesannum/fluent-plugin-prometheus/tree/patch-v1.3.0
+COPY fluent-plugin-prometheus-1.3.0.gem /tmp/
 # Throttle plugin with composite group support (not released on rubygems)
 # https://github.com/terjesannum/fluent-plugin-throttle/tree/nais-patches
 COPY fluent-plugin-throttle-0.0.3.gem /tmp/
 RUN buildDeps='ruby-dev g++ make' \
  && apt-get -y update && apt-get -y install $buildDeps libsystemd0 --no-install-recommends \
  && gem install --no-document fluent-plugin-kubernetes_metadata_filter -v 2.1.6 \
- && gem install --no-document fluent-plugin-elasticsearch -v 3.3.1 \
+ && gem install --no-document fluent-plugin-elasticsearch -v 3.3.3 \
  && gem install --no-document /tmp/fluent-plugin-throttle-0.0.3.gem \
- && gem install --no-document fluent-plugin-rewrite-tag-filter -v 2.1.1 \
- && gem install --no-document /tmp/fluent-plugin-prometheus-1.2.1.gem \
+ && gem install --no-document fluent-plugin-rewrite-tag-filter -v 2.2.0 \
+ && gem install --no-document /tmp/fluent-plugin-prometheus-1.3.0.gem \
  && gem install --no-document fluent-plugin-systemd -v 1.0.2 \
  && gem install --no-document fluent-plugin-ignore-filter -v 2.0.0 \
  && gem install --no-document logfmt -v 0.0.8 \
