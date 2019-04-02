@@ -2,8 +2,8 @@ fluentd:
   name: fluentd
   image:
     repository: navikt/nais-logd
-#    tag: 94
-    digest: sha256:34735b486dd1766abe5f807cc40a4c3ca87ab1cfb0c4aac72e02c2eb2924871f
+#    tag: 95
+    digest: sha256:1ac1afa104aff665bcf28caac25a3cb1b49c8666ff9bf4aaf8055268f0e0a5d1
     pullPolicy: IfNotPresent
   updateStrategy: RollingUpdate
   pos_file:
@@ -13,6 +13,7 @@ elasticsearch:
   hosts: elasticsearch-logging:9200
   scheme: http
   ssl_verify: true
+  ca_file: /etc/pki/tls/certs/ca-bundle.crt
   index_name: logstash-apps-test
   logstash_format: true
   logstash_prefix: logstash-apps-test
@@ -43,6 +44,11 @@ volumes:
     mountPath: /var/lib/docker/containers
     hostPath: /var/lib/docker/containers
     readOnly: true
+# configMaps:
+# - name: configmap-name
+#   path: mount-path
+#  subPath: sub-path
+configMaps: []
     
 # Add to override conf file in docker image
 # configFiles:

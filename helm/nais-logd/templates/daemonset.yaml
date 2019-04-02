@@ -38,6 +38,8 @@ spec:
             value: "{{ .Values.elasticsearch.scheme }}"
           - name: ELASTICSEARCH_SSL_VERIFY
             value: "{{ .Values.elasticsearch.ssl_verify }}"
+          - name: ELASTICSEARCH_CA_FILE
+            value: "{{ .Values.elasticsearch.ca_file }}"
           - name: ELASTICSEARCH_INDEX_NAME
             value: "{{ .Values.elasticsearch.index_name }}"
           - name: ELASTICSEARCH_LOGSTASH_FORMAT
@@ -78,6 +80,14 @@ spec:
             mountPath: "{{ $volume.mountPath }}"
             readOnly: {{ $volume.readOnly }}
 {{- end }}
+{{- range $configmap := .Values.configMaps }}
+          - name: {{ $configmap.name }}
+            mountPath: {{ $configmap.path }}
+{{- if $configmap.subPath }}
+            subPath: {{ $configmap.subPath }}
+{{- end }}
+            readOnly: true
+{{- end }}
       terminationGracePeriodSeconds: 30
       tolerations:
         - operator: Exists
@@ -91,4 +101,9 @@ spec:
         - name: "{{ $volume.name }}"
           hostPath:
             path: "{{ $volume.hostPath }}"
+{{- end }}
+{{- range $configmap := .Values.configMaps }}
+        - name: {{ $configmap.name }}
+          configMap:
+            name: {{ $configmap.name }}
 {{- end }}
