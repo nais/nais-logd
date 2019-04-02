@@ -11,7 +11,7 @@ COPY fluent-plugin-throttle-0.0.3.gem /tmp/
 RUN buildDeps='ruby-dev g++ make' \
  && apt-get -y update && apt-get -y install $buildDeps libsystemd0 --no-install-recommends \
  && gem install --no-document fluent-plugin-kubernetes_metadata_filter -v 2.1.6 \
- && gem install --no-document fluent-plugin-elasticsearch -v 3.3.3 \
+ && gem install --no-document fluent-plugin-elasticsearch -v 3.4.0 \
  && gem install --no-document /tmp/fluent-plugin-throttle-0.0.3.gem \
  && gem install --no-document fluent-plugin-rewrite-tag-filter -v 2.2.0 \
  && gem install --no-document /tmp/fluent-plugin-prometheus-1.3.0.gem \
@@ -31,6 +31,7 @@ ENV FLUENTD_JOURNAL_POS_FILE /var/log/journald.log.pos
 ENV ELASTICSEARCH_HOSTS elasticsearch-logging:9200
 ENV ELASTICSEARCH_SCHEME http
 ENV ELASTICSEARCH_SSL_VERIFY true
+ENV ELASTICSEARCH_CA_FILE /etc/pki/tls/certs/ca-bundle.crt
 ENV ELASTICSEARCH_INDEX_NAME logstash-apps-test
 ENV ELASTICSEARCH_LOGSTASH_FORMAT true
 ENV ELASTICSEARCH_LOGSTASH_PREFIX logstash-apps-test
