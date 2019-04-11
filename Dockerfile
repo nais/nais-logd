@@ -26,6 +26,7 @@ RUN buildDeps='ruby-dev g++ make' \
 
 EXPOSE 9000
 
+ENV TZ UTC
 ENV FLUENTD_CONTAINERS_POS_FILE /var/log/es-containers.log.pos
 ENV FLUENTD_JOURNAL_POS_FILE /var/log/journald.log.pos
 ENV ELASTICSEARCH_HOSTS elasticsearch-logging:9200
