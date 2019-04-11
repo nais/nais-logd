@@ -2,13 +2,14 @@ fluentd:
   name: fluentd
   image:
     repository: navikt/nais-logd
-#    tag: 95
-    digest: sha256:1ac1afa104aff665bcf28caac25a3cb1b49c8666ff9bf4aaf8055268f0e0a5d1
+#    tag: 97
+    digest: sha256:687693e8715cabd3646b9cb2511dd6ec0f94ca37028dca322c0070b499b023f8
     pullPolicy: IfNotPresent
   updateStrategy: RollingUpdate
   pos_file:
     containers: /var/log/es-containers.log.pos
     journal: /var/log/journald.log.pos
+  timezone: UTC
 elasticsearch:
   hosts: elasticsearch-logging:9200
   scheme: http
