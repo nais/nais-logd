@@ -21,7 +21,7 @@ RUN buildDeps='ruby-dev g++ make' \
  && gem install --no-document nais-log-parser -v 0.38.0 \
  && gem install --no-document fluent-plugin-nais -v 0.37.0 \
  && gem sources --clear-all \
- && rm -rf /usr/lib/ruby/gems/*/cache/*.gem \
+ && rm -rf /usr/lib/ruby/gems/*/cache/*.gem /tmp/*.gem \
  && apt-get purge -y --auto-remove $buildDeps
 
 EXPOSE 9000
