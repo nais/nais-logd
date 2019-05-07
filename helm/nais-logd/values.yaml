@@ -10,6 +10,13 @@ fluentd:
     containers: /var/log/es-containers.log.pos
     journal: /var/log/journald.log.pos
   timezone: UTC
+  resources: {}
+    # limits:
+    #   cpu: 100m
+    #   memory: 384Mi
+    # requests:
+    #   cpu: 100m
+    #   memory: 384Mi
 elasticsearch:
   hosts: elasticsearch-logging:9200
   scheme: http
@@ -31,6 +38,13 @@ kubewatch:
 #    tag: v0.3.3
     digest: sha256:5fb7150eb75339af8259de14ec7438ce6b290bbd6e43425c27dc97263c565e6d
     pullPolicy: IfNotPresent
+  resources: {}
+    # limits:
+    #   cpu: 20m
+    #   memory: 32Mi
+    # requests:
+    #   cpu: 20m
+    #   memory: 32Mi
 throttle:
   bucket_period: 60
   bucket_limit: 8000

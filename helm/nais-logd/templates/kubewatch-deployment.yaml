@@ -29,5 +29,7 @@ spec:
         imagePullPolicy: "{{ .Values.kubewatch.image.pullPolicy }}"
         args:
           - events
+        resources:
+{{ toYaml .Values.kubewatch.resources | indent 10 }}
       terminationGracePeriodSeconds: 30
 {{- end }}

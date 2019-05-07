@@ -31,6 +31,8 @@ spec:
         image: "{{ .Values.fluentd.image.repository }}:{{ .Values.fluentd.image.tag }}"
         {{- end }}
         imagePullPolicy: "{{ .Values.fluentd.image.pullPolicy }}"
+        resources:
+{{ toYaml .Values.fluentd.resources | indent 10 }}
         env:
           - name: TZ
             value: "{{ .Values.fluentd.timezone }}"
