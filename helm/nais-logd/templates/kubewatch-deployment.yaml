@@ -1,5 +1,5 @@
 {{- if .Values.kubewatch.enable -}}
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: {{ template "nais-logd.kubewatch.fullname" . }}
@@ -10,6 +10,11 @@ metadata:
     heritage: {{ .Release.Service }}
     release: {{ .Release.Name }}
 spec:
+  selector:
+    matchLabels:
+      app: {{ template "nais-logd.name" . }}
+      release: {{ .Release.Name }}
+      component: "{{ .Values.kubewatch.name }}"
   replicas: 1
   template:
     metadata:

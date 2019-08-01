@@ -1,4 +1,4 @@
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: DaemonSet
 metadata:
   name: {{ template "nais-logd.fluentd.fullname" . }}
@@ -11,6 +11,11 @@ metadata:
 spec:
   updateStrategy:
     type: "{{ .Values.fluentd.updateStrategy }}"
+  selector:
+    matchLabels:
+      app: {{ template "nais-logd.name" . }}
+      release: {{ .Release.Name }}
+      component: "{{ .Values.fluentd.name }}"
   template:
     metadata:
       labels:
