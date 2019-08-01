@@ -50,6 +50,7 @@ throttle:
   bucket_limit: 8000
   reset_rate: 100
   drop_logs: true
+runAsUser: 1065
 volumes:
   - name: varlog
     mountPath: /var/log

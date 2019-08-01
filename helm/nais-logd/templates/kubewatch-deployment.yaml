@@ -32,4 +32,11 @@ spec:
         resources:
 {{ toYaml .Values.kubewatch.resources | indent 10 }}
       terminationGracePeriodSeconds: 30
+      securityContext:
+        allowPrivilegeEscalation: false
+        capabilities:
+          drop: ["all"]
+        readOnlyRootFilesystem: true
+        runAsNonRoot: true
+        runAsUser: {{ .Values.runAsUser }}
 {{- end }}

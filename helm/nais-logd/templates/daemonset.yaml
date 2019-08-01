@@ -74,7 +74,16 @@ spec:
           - name: metrics
             containerPort: 9000
             protocol: TCP
+        securityContext:
+          allowPrivilegeEscalation: false
+          capabilities:
+            drop: ["all"]
+          readOnlyRootFilesystem: true
+          runAsNonRoot: true
+          runAsUser: {{ .Values.runAsUser }}
         volumeMounts:
+          - name: tmp
+            mountPath: /tmp
 {{- if .Values.configFiles }}
           - name: config-volume
             mountPath: /fluentd/etc
@@ -96,6 +105,8 @@ spec:
       tolerations:
         - operator: Exists
       volumes:
+        - name: tmp
+          emptyDir: {}
 {{- if .Values.configFiles }}
         - name: config-volume
           configMap:
