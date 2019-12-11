@@ -8,8 +8,11 @@ COPY fluent-plugin-prometheus-1.3.0.gem /tmp/
 # Throttle plugin with composite group support (not released on rubygems)
 # https://github.com/terjesannum/fluent-plugin-throttle/tree/nais-patches
 COPY fluent-plugin-throttle-0.0.3.gem /tmp/
+# Gems activesupoort and prometheus-client are nested dependencies, ensure compatible version
 RUN buildDeps='ruby-dev g++ make' \
  && apt-get -y update && apt-get -y install $buildDeps libsystemd0 --no-install-recommends \
+ && gem install --no-document activesupport -v 5.2.4 \
+ && gem install --no-document prometheus-client -v 0.9.0 \
  && gem install --no-document fluent-plugin-kubernetes_metadata_filter -v 2.1.6 \
  && gem install --no-document fluent-plugin-elasticsearch -v 3.4.1 \
  && gem install --no-document /tmp/fluent-plugin-throttle-0.0.3.gem \
