@@ -5,6 +5,7 @@ fluentd:
 #    tag: 97
     digest: sha256:687693e8715cabd3646b9cb2511dd6ec0f94ca37028dca322c0070b499b023f8
     pullPolicy: IfNotPresent
+  imagePullSecrets: []
   updateStrategy: RollingUpdate
   pos_file:
     containers: /var/log/es-containers.log.pos

@@ -28,6 +28,10 @@ spec:
         prometheus.io/path: "/metrics"
     spec:
       serviceAccountName: {{ template "nais-logd.fullname" . }}
+      {{- if .Values.fluentd.imagePullSecrets }}
+      imagePullSecrets:
+{{ toYaml .Values.fluentd.imagePullSecrets | indent 6 }}
+      {{- end }}
       containers:
       - name: {{ template "nais-logd.name" . }}-{{ .Values.fluentd.name }}
         {{- if .Values.fluentd.image.digest }}
