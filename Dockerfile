@@ -1,6 +1,9 @@
 FROM fluent/fluentd:v1.4.2-debian-1.0
 LABEL maintainer "terje.sannum@nav.no"
 
+ARG GEM_VERSION_NAIS_LOG_PARSER
+ARG GEM_VERSION_FLUENT_PLUGIN_NAIS
+
 USER root
 # Prometheus plugin with pr 47
 # https://github.com/terjesannum/fluent-plugin-prometheus/tree/patch-v1.3.0
@@ -8,6 +11,9 @@ COPY fluent-plugin-prometheus-1.3.0.gem /tmp/
 # Throttle plugin with composite group support (not released on rubygems)
 # https://github.com/terjesannum/fluent-plugin-throttle/tree/nais-patches
 COPY fluent-plugin-throttle-0.0.3.gem /tmp/
+# Copy gems fetched from GPR
+COPY nais-log-parser-$GEM_VERSION_NAIS_LOG_PARSER.gem /tmp/
+COPY fluent-plugin-nais-$GEM_VERSION_FLUENT_PLUGIN_NAIS.gem /tmp/
 # Gems activesupoort and prometheus-client are nested dependencies, ensure compatible version
 RUN buildDeps='ruby-dev g++ make' \
  && apt-get -y update && apt-get -y install $buildDeps libsystemd0 --no-install-recommends \
@@ -20,9 +26,9 @@ RUN buildDeps='ruby-dev g++ make' \
  && gem install --no-document /tmp/fluent-plugin-prometheus-1.3.0.gem \
  && gem install --no-document fluent-plugin-systemd -v 1.0.2 \
  && gem install --no-document fluent-plugin-ignore-filter -v 2.0.0 \
- && gem install --no-document logfmt -v 0.0.8 \
- && gem install --no-document nais-log-parser -v 0.38.1 \
- && gem install --no-document fluent-plugin-nais -v 0.37.0 \
+ && gem install --no-document logfmt -v 0.0.9 \
+ && gem install --no-document /tmp/nais-log-parser-$GEM_VERSION_NAIS_LOG_PARSER.gem \
+ && gem install --no-document /tmp/fluent-plugin-nais-$GEM_VERSION_FLUENT_PLUGIN_NAIS.gem \
  && gem sources --clear-all \
  && rm -rf /usr/lib/ruby/gems/*/cache/*.gem /tmp/*.gem \
  && apt-get purge -y --auto-remove $buildDeps
