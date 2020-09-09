@@ -1,3 +1,6 @@
+psp:
+  use: false
+  name: privileged
 fluentd:
   name: fluentd
   image:

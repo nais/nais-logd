@@ -11,3 +11,13 @@ rules:
   - apiGroups: [""]
     resources: ["pods", "namespaces", "events"]
     verbs: ["get", "watch", "list"]
+{{- if .Values.psp.use }}
+  - apiGroups:
+    - policy
+    resourceNames:
+    - {{ .Values.psp.name }}
+    resources:
+    - podsecuritypolicies
+    verbs:
+    - use
+{{- end }}
