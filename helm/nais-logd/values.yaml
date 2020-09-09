@@ -10,6 +10,7 @@ fluentd:
     pullPolicy: IfNotPresent
   imagePullSecrets: []
   updateStrategy: RollingUpdate
+  initContainers: []
   pos_file:
     containers: /var/log/es-containers.log.pos
     journal: /var/log/journald.log.pos
