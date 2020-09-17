@@ -1,0 +1,27 @@
+{{- if .Values.psp.enabled }}
+{{- if not .Values.psp.existingPsp }}
+apiVersion: policy/v1beta1
+kind: PodSecurityPolicy
+metadata:
+  name: {{ template "nais-logd.fullname" . }}
+spec:
+  allowPrivilegeEscalation: false
+  {{- with .Values.psp.allowedHostPaths }}
+  allowedHostPaths: {{ toYaml . | nindent 4 }}
+  {{- end }}
+  fsGroup:
+    rule: RunAsAny
+  hostNetwork: false
+  runAsUser:
+    rule: RunAsAny
+  seLinux:
+    rule: RunAsAny
+  supplementalGroups:
+    rule: RunAsAny
+  volumes:
+  - configMap
+  - emptyDir
+  - hostPath
+  - secret
+{{- end }}
+{{- end }}

@@ -1,6 +1,10 @@
 psp:
-  use: false
-  name: privileged
+  enabled: true
+#  Set existingPsp to use a psp already defined in the cluster
+#  existingPsp: otherpsp
+  allowedHostPaths:
+  - pathPrefix: /var/log
+  - pathPrefix: /var/lib/docker/containers
 fluentd:
   name: fluentd
   image:

@@ -11,11 +11,11 @@ rules:
   - apiGroups: [""]
     resources: ["pods", "namespaces", "events"]
     verbs: ["get", "watch", "list"]
-{{- if .Values.psp.use }}
+{{- if .Values.psp.enabled }}
   - apiGroups:
     - policy
     resourceNames:
-    - {{ .Values.psp.name }}
+    - {{ if .Values.psp.existingPsp }}{{ .Values.psp.existingPsp }}{{- else }}{{ template "nais-logd.fullname" . }}{{- end }}
     resources:
     - podsecuritypolicies
     verbs:
