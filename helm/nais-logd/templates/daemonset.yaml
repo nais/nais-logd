@@ -11,6 +11,8 @@ metadata:
 spec:
   updateStrategy:
     type: "{{ .Values.fluentd.updateStrategy }}"
+    rollingUpdate:
+      maxUnavailable: {{ .Values.fluentd.rollingUpdate.maxUnavailable }}
   selector:
     matchLabels:
       app: {{ template "nais-logd.name" . }}
