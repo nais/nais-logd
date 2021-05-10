@@ -28,6 +28,17 @@ fluentd:
     # requests:
     #   cpu: 100m
     #   memory: 384Mi
+configmapReload:
+  image:
+    repository: jimmidyson/configmap-reload
+    digest: sha256:befec9f23d2a9da86a298d448cc9140f56a457362a7d9eecddba192db1ab489e
+  resources:
+    requests:
+      cpu: 10m
+      memory: 10M
+    limits:
+      cpu: 100m
+      memory: 100M
 elasticsearch:
   hosts: elasticsearch-logging:9200
   scheme: http

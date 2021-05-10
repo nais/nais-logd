@@ -38,6 +38,21 @@ spec:
       initContainers: {{ toYaml . | nindent 8 }}
       {{- end }}
       containers:
+      {{- if .Values.configFiles }}
+      - name: configmap-reload
+        image: "{{ .Values.configmapReload.image.repository }}@{{ .Values.configmapReload.image.digest }}"
+        imagePullPolicy: IfNotPresent
+        resources:
+{{ toYaml .Values.configmapReload.resources | indent 10 }}
+        args:
+        - --volume-dir=/config
+        - --webhook-url=http://localhost:24444/api/config.reload
+        - --webhook-method=GET
+        volumeMounts:
+        - name: config-volume
+          mountPath: /config
+          readOnly: true
+      {{- end }}
       - name: {{ template "nais-logd.name" . }}-{{ .Values.fluentd.name }}
         {{- if .Values.fluentd.image.digest }}
         image: "{{ .Values.fluentd.image.repository }}@{{ .Values.fluentd.image.digest }}"
