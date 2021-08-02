@@ -8,9 +8,9 @@ psp:
 fluentd:
   name: fluentd
   image:
-    repository: navikt/nais-logd
-    tag: 97
-#    digest: sha256:687693e8715cabd3646b9cb2511dd6ec0f94ca37028dca322c0070b499b023f8
+    repository: docker.pkg.github.com/nais/nais-logd/nais-logd
+    tag: 106
+#    digest: sha256:9ac13816157d1127f04a9ac262e476903f3b8d3ee2c9aef9a2cee82ac79fd3c2
     pullPolicy: IfNotPresent
   imagePullSecrets: []
   updateStrategy: RollingUpdate
