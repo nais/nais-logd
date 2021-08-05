@@ -74,6 +74,11 @@ throttle:
   drop_logs: true
 runAsNonRoot: true
 runAsUser: 1065
+# enabling logs_acl will add a container using file system acls to ensure that logs files are readable by the specified gid
+logs_acl:
+  enable: true
+  gid: 1065
+  image: ghcr.io/nais/set-logs-acl:2
 volumes:
   - name: varlog
     mountPath: /var/log
