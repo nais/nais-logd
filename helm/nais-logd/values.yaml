@@ -74,6 +74,7 @@ throttle:
   drop_logs: true
 runAsNonRoot: true
 runAsUser: 1065
+runAsGroup: 1065
 # enabling logs_acl will add a container using file system acls to ensure that logs files are readable by the specified gid
 logs_acl:
   enable: true

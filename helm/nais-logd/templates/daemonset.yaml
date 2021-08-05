@@ -132,6 +132,7 @@ spec:
           readOnlyRootFilesystem: true
           runAsNonRoot: {{ .Values.runAsNonRoot }}
           runAsUser: {{ .Values.runAsUser }}
+          runAsGroup: {{ .Values.runAsGroup }}
         volumeMounts:
           - name: tmp
             mountPath: /tmp
