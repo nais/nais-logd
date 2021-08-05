@@ -79,6 +79,13 @@ logs_acl:
   enable: true
   gid: 1065
   image: ghcr.io/nais/set-logs-acl:2
+  resources: {}
+    # limits:
+    #   cpu: 100m
+    #   memory: 100M
+    # requests:
+    #   cpu: 10m
+    #   memory: 20M
 volumes:
   - name: varlog
     mountPath: /var/log

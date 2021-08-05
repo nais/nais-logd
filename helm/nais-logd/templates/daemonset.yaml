@@ -58,12 +58,7 @@ spec:
         image: {{ .Values.logs_acl.image }}
         imagePullPolicy: IfNotPresent
         resources:
-          limits:
-            cpu: 100m
-            memory: 100M
-          requests:
-            cpu: 10m
-            memory: 10M
+{{ toYaml .Values.logs_acl.resources | indent 10 }}
         env:
         - name: "ACL_GID"
           value: "{{ .Values.logs_acl.gid }}"
