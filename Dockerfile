@@ -1,4 +1,4 @@
-FROM fluent/fluentd:v1.4.2-debian-1.0
+FROM fluent/fluentd:v1.14.0-debian-1.0
 LABEL maintainer "terje.sannum@nav.no"
 
 ARG GEM_VERSION_NAIS_LOG_PARSER
@@ -17,11 +17,10 @@ COPY fluent-plugin-nais-$GEM_VERSION_FLUENT_PLUGIN_NAIS.gem /tmp/
 # Gems activesupoort and prometheus-client are nested dependencies, ensure compatible version
 RUN buildDeps='ruby-dev g++ make' \
  && apt-get -y update && apt-get -y install $buildDeps libsystemd0 --no-install-recommends \
- && gem install --no-document activesupport -v 5.2.4 \
  && gem install --no-document prometheus-client -v 0.9.0 \
  && gem install --no-document elasticsearch -v 7.5.0 \
- && gem install --no-document fluent-plugin-kubernetes_metadata_filter -v 2.1.6 \
- && gem install --no-document fluent-plugin-elasticsearch -v 3.4.1 \
+ && gem install --no-document fluent-plugin-kubernetes_metadata_filter -v 2.9.1 \
+ && gem install --no-document fluent-plugin-elasticsearch -v 4.0.11 \
  && gem install --no-document /tmp/fluent-plugin-throttle-0.0.3.gem \
  && gem install --no-document fluent-plugin-rewrite-tag-filter -v 2.2.0 \
  && gem install --no-document /tmp/fluent-plugin-prometheus-1.3.0.gem \
