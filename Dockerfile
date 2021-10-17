@@ -14,7 +14,6 @@ COPY fluent-plugin-throttle-0.0.3.gem /tmp/
 # Copy gems fetched from GPR
 COPY nais-log-parser-$GEM_VERSION_NAIS_LOG_PARSER.gem /tmp/
 COPY fluent-plugin-nais-$GEM_VERSION_FLUENT_PLUGIN_NAIS.gem /tmp/
-# Gems activesupoort and prometheus-client are nested dependencies, ensure compatible version
 RUN buildDeps='ruby-dev g++ make' \
  && apt-get -y update && apt-get -y install $buildDeps libsystemd0 --no-install-recommends \
  && gem install --no-document prometheus-client -v 0.9.0 \
