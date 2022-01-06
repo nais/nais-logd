@@ -19,7 +19,7 @@ docker: check-vars nais-log-parser-$(GEM_VERSION_NAIS_LOG_PARSER).gem fluent-plu
 	docker build \
 	--build-arg GEM_VERSION_NAIS_LOG_PARSER=$(GEM_VERSION_NAIS_LOG_PARSER) \
 	--build-arg GEM_VERSION_FLUENT_PLUGIN_NAIS=$(GEM_VERSION_FLUENT_PLUGIN_NAIS) \
-	-t ghcr.io/nais/nais-logd/nais-logd:$(IMAGE_TAG) .
+	-t ghcr.io/nais/nais-logd:$(IMAGE_TAG) .
 
 nais-log-parser-$(GEM_VERSION_NAIS_LOG_PARSER).gem:
 	gem fetch nais-log-parser --version "$(GEM_VERSION_NAIS_LOG_PARSER)" --source "https://x-access-token:$(GITHUB_TOKEN)@rubygems.pkg.github.com/nais"
