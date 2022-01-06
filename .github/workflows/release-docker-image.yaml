@@ -23,4 +23,4 @@ jobs:
         password: ${{ secrets.GITHUB_TOKEN }}
     - name: Push Docker image
       run: |
-        docker push ghcr.io/${GITHUB_REPOSITORY}:${GITHUB_REF##*/}
+        docker push ghcr.io/nais/nais-logd/nais-logd:${GITHUB_REF##*/}
