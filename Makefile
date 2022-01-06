@@ -12,7 +12,6 @@ clean:
 	rm -f fluent-plugin-nais-*.gem
 
 check-vars:
-	@test $(GITHUB_TOKEN) || echo "GITHUB_TOKEN not set" && test $(GITHUB_TOKEN)
 	@test "$(IMAGE_TAG)" != "0" || echo "Warning: Using default image tag: 0"
 
 docker: check-vars nais-log-parser-$(GEM_VERSION_NAIS_LOG_PARSER).gem fluent-plugin-nais-$(GEM_VERSION_FLUENT_PLUGIN_NAIS).gem
