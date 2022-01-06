@@ -6,6 +6,8 @@ on:
       - '[0-9]+'
 jobs:
   release:
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     runs-on: ubuntu-latest
     steps:
     - name: Checkout
@@ -17,8 +19,8 @@ jobs:
       uses: docker/login-action@v1
       with:
         registry: ghcr.io
-        username: ${GITHUB_ACTOR}
+        username: ${{ github.actor }}
         password: ${{ secrets.GITHUB_TOKEN }}
     - name: Push Docker image
       run: |
-        docker push ghcr.io/nais/nais-logd/nais-logd:${GITHUB_REF##*/}
+        docker push ghcr.io/${GITHUB_REPOSITORY}:${GITHUB_REF##*/}
