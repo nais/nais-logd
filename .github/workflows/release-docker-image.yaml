@@ -15,9 +15,12 @@ jobs:
     - name: Build Docker image
       run: |
         make docker IMAGE_TAG=${GITHUB_REF##*/}
-    - name: Login GPR
-      run: |
-        docker login -u ${GITHUB_REPOSITORY} -p ${GITHUB_TOKEN} ghcr.io
+    - name: Login to GitHub Container Registry
+      uses: docker/login-action@v1
+      with:
+        registry: ghcr.io
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
     - name: Push Docker image
       run: |
         docker push ghcr.io/${GITHUB_REPOSITORY}:${GITHUB_REF##*/}
