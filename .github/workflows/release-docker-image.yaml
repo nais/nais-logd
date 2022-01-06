@@ -8,17 +8,16 @@ jobs:
   release:
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      IMAGE_NAME: nais-logd
     runs-on: ubuntu-latest
     steps:
     - name: Checkout
       uses: actions/checkout@v1
     - name: Build Docker image
       run: |
-        make docker IMAGE_NAME=${IMAGE_NAME} IMAGE_TAG=${GITHUB_REF##*/}
+        make docker IMAGE_TAG=${GITHUB_REF##*/}
     - name: Login GPR
       run: |
         docker login -u ${GITHUB_REPOSITORY} -p ${GITHUB_TOKEN} ghcr.io
     - name: Push Docker image
       run: |
-        docker push ghcr.io/${GITHUB_REPOSITORY}/${IMAGE_NAME}:${GITHUB_REF##*/}
+        docker push ghcr.io/${GITHUB_REPOSITORY}:${GITHUB_REF##*/}
