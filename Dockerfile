@@ -1,4 +1,4 @@
-FROM fluent/fluentd:v1.14.0-debian-1.0
+FROM fluent/fluentd:v1.14.4-debian-1.0
 LABEL maintainer "terje.sannum@nav.no"
 
 ARG GEM_VERSION_NAIS_LOG_PARSER
@@ -23,7 +23,7 @@ RUN buildDeps='ruby-dev g++ make' \
  && gem install --no-document /tmp/fluent-plugin-throttle-0.0.3.gem \
  && gem install --no-document fluent-plugin-rewrite-tag-filter -v 2.2.0 \
  && gem install --no-document /tmp/fluent-plugin-prometheus-1.3.0.gem \
- && gem install --no-document fluent-plugin-systemd -v 1.0.2 \
+ && gem install --no-document fluent-plugin-systemd -v 1.0.5 \
  && gem install --no-document fluent-plugin-ignore-filter -v 2.0.0 \
  && gem install --no-document logfmt -v 0.0.9 \
  && gem install --no-document /tmp/nais-log-parser-$GEM_VERSION_NAIS_LOG_PARSER.gem \
