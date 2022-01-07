@@ -62,6 +62,8 @@ spec:
         env:
         - name: "ACL_GID"
           value: "{{ .Values.logs_acl.gid }}"
+        - name: "CONTAINER_LOG_DIR"
+          value: "{{ .Values.logs_acl.container_log_dir }}"
         securityContext:
           allowPrivilegeEscalation: false
           capabilities:
