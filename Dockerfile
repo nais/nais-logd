@@ -18,6 +18,7 @@ RUN buildDeps='ruby-dev g++ make' \
  && apt-get -y update && apt-get -y install $buildDeps libsystemd0 --no-install-recommends \
  && gem install --no-document prometheus-client -v 0.9.0 \
  && gem install --no-document elasticsearch -v 7.5.0 \
+ && gem install --no-document fluent-plugin-multi-format-parser -v 1.0.0 \
  && gem install --no-document fluent-plugin-kubernetes_metadata_filter -v 2.9.4 \
  && gem install --no-document fluent-plugin-elasticsearch -v 4.0.11 \
  && gem install --no-document /tmp/fluent-plugin-throttle-0.0.3.gem \
