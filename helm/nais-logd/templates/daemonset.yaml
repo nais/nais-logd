@@ -29,6 +29,8 @@ spec:
         prometheus.io/port: "9000"
         prometheus.io/path: "/metrics"
     spec:
+      nodeSelector:
+        {{ toYaml .Values.nodeSelector | nindent 8 }}
       serviceAccountName: {{ template "nais-logd.fullname" . }}
       {{- if .Values.fluentd.imagePullSecrets }}
       imagePullSecrets:

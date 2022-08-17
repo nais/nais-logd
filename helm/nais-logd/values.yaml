@@ -5,6 +5,7 @@ psp:
   allowedHostPaths:
   - pathPrefix: /var/log
   - pathPrefix: /var/log/pods
+nodeSelector: {}
 fluentd:
   name: fluentd
   image:
