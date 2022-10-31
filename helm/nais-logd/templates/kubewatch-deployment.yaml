@@ -37,11 +37,6 @@ spec:
         resources:
 {{ toYaml .Values.kubewatch.resources | indent 10 }}
         securityContext:
-          allowPrivilegeEscalation: false
-          capabilities:
-            drop: ["all"]
-          readOnlyRootFilesystem: true
-          runAsNonRoot: {{ .Values.runAsNonRoot }}
-          runAsUser: {{ .Values.runAsUser }}
+          {{- toYaml .Values.kubewatch.securityContext | nindent 12 }}
       terminationGracePeriodSeconds: 30
 {{- end }}

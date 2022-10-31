@@ -24,6 +24,9 @@ spec:
         app: {{ template "nais-logd.name" . }}
         component: "{{ .Values.fluentd.name }}"
         release: {{ .Release.Name }}
+        {{- if .Values.fluentd.podLabels }}
+        {{- toYaml .Values.fluentd.podLabels | nindent 8 }}
+        {{- end }}
       annotations:
         prometheus.io/scrape: "true"
         prometheus.io/port: "9000"
@@ -44,6 +47,8 @@ spec:
       - name: configmap-reload
         image: "{{ .Values.configmapReload.image.repository }}@{{ .Values.configmapReload.image.digest }}"
         imagePullPolicy: IfNotPresent
+        securityContext:
+        {{- toYaml .Values.configmapReload.securityContext | nindent 10 }}
         resources:
 {{ toYaml .Values.configmapReload.resources | indent 10 }}
         args:
@@ -67,12 +72,7 @@ spec:
         - name: "CONTAINER_LOG_DIR"
           value: "{{ .Values.logs_acl.container_log_dir }}"
         securityContext:
-          allowPrivilegeEscalation: false
-          capabilities:
-            drop: ["all"]
-          readOnlyRootFilesystem: true
-          runAsNonRoot: false
-          runAsUser: 0
+        {{- toYaml .Values.logs_acl.securityContext | nindent 10 }}
         volumeMounts:
         {{- range $volume := .Values.volumes }}
         - name: "{{ $volume.name }}"
@@ -134,13 +134,7 @@ spec:
             containerPort: 9000
             protocol: TCP
         securityContext:
-          allowPrivilegeEscalation: false
-          capabilities:
-            drop: ["all"]
-          readOnlyRootFilesystem: true
-          runAsNonRoot: {{ .Values.runAsNonRoot }}
-          runAsUser: {{ .Values.runAsUser }}
-          runAsGroup: {{ .Values.runAsGroup }}
+        {{- toYaml .Values.fluentd.securityContext | nindent 10 }}
         volumeMounts:
           - name: tmp
             mountPath: /tmp

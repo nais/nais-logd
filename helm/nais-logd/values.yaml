@@ -9,7 +9,7 @@ nodeSelector: {}
 fluentd:
   name: fluentd
   image:
-    repository: docker.pkg.github.com/nais/nais-logd/nais-logd
+    repository: ghcr.io/nais/nais-logd/nais-logd
     tag: 106
 #    digest: sha256:9ac13816157d1127f04a9ac262e476903f3b8d3ee2c9aef9a2cee82ac79fd3c2
     pullPolicy: IfNotPresent
@@ -22,6 +22,17 @@ fluentd:
     containers: /var/log/es-containers.log.pos
     journal: /var/log/journald.log.pos
   timezone: UTC
+  podLabels: {}
+  securityContext:
+    allowPrivilegeEscalation: false
+    capabilities:
+      drop: ["all"]
+    readOnlyRootFilesystem: true
+    runAsNonRoot: true
+    runAsUser: 1065
+    runAsGroup: 1065
+    seccompProfile:
+      type: RuntimeDefault
   resources: {}
     # limits:
     #   cpu: 100m
@@ -33,6 +44,15 @@ configmapReload:
   image:
     repository: jimmidyson/configmap-reload
     digest: sha256:befec9f23d2a9da86a298d448cc9140f56a457362a7d9eecddba192db1ab489e
+  securityContext:
+    allowPrivilegeEscalation: false
+    capabilities:
+      drop: ["all"]
+    readOnlyRootFilesystem: true
+    runAsNonRoot: true
+    runAsUser: 1065
+    seccompProfile:
+      type: RuntimeDefault
   resources:
     requests:
       cpu: 10m
@@ -61,6 +81,15 @@ kubewatch:
 #    tag: v0.3.3
     digest: sha256:5fb7150eb75339af8259de14ec7438ce6b290bbd6e43425c27dc97263c565e6d
     pullPolicy: IfNotPresent
+  securityContext:
+    allowPrivilegeEscalation: false
+    capabilities:
+      drop: ["all"]
+    readOnlyRootFilesystem: true
+    runAsNonRoot: true
+    runAsUser: 1065
+    seccompProfile:
+      type: RuntimeDefault
   resources: {}
     # limits:
     #   cpu: 20m
@@ -73,15 +102,21 @@ throttle:
   bucket_limit: 8000
   reset_rate: 100
   drop_logs: true
-runAsNonRoot: true
-runAsUser: 1065
-runAsGroup: 1065
 # enabling logs_acl will add a container using file system acls to ensure that logs files are readable by the specified gid
 logs_acl:
   enable: true
   gid: 1065
   image: ghcr.io/nais/set-logs-acl:4
   container_log_dir: /var/log/pods
+  securityContext:
+    allowPrivilegeEscalation: false
+    capabilities:
+      drop: ["all"]
+    readOnlyRootFilesystem: true
+    runAsNonRoot: false
+    runAsUser: 0
+    seccompProfile:
+      type: RuntimeDefault
   resources: {}
     # limits:
     #   cpu: 100m
