@@ -1,4 +1,4 @@
-FROM fluent/fluentd:v1.14.4-debian-1.0
+FROM fluent/fluentd:v1.15.3-debian-1.0
 LABEL maintainer "terje.sannum@nav.no"
 
 ARG GEM_VERSION_NAIS_LOG_PARSER
