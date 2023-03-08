@@ -2,6 +2,7 @@ GEM_VERSION_NAIS_LOG_PARSER    = 0.46.2
 GEM_VERSION_FLUENT_PLUGIN_NAIS = 0.48.0
 
 IMAGE_TAG         = 0
+IMAGE_TAGS        = ""
 
 .PHONY: all docker clean check-vars
 
@@ -21,10 +22,14 @@ docker: check-vars nais-log-parser-$(GEM_VERSION_NAIS_LOG_PARSER).gem fluent-plu
 	--build-arg GEM_VERSION_FLUENT_PLUGIN_NAIS=$(GEM_VERSION_FLUENT_PLUGIN_NAIS) \
 	-t ghcr.io/nais/nais-logd/nais-logd:$(IMAGE_TAG) .
 
+docker-gar: check-vars nais-log-parser-$(GEM_VERSION_NAIS_LOG_PARSER).gem fluent-plugin-nais-$(GEM_VERSION_FLUENT_PLUGIN_NAIS).gem
+	@test "$(DOCKER_METADATA_OUTPUT_TAGS)" != "" || echo "DOCKER_METADATA_OUTPUT_TAGS not set" && exit 1
+	./build-gar.sh $(GEM_VERSION_NAIS_LOG_PARSER) $(GEM_VERSION_FLUENT_PLUGIN_NAIS)
+
 nais-log-parser-$(GEM_VERSION_NAIS_LOG_PARSER).gem:
-	gem fetch nais-log-parser --version "$(GEM_VERSION_NAIS_LOG_PARSER)" --source "https://x-access-token:$(GITHUB_TOKEN)@rubygems.pkg.github.com/nais"
+	gem fetch nais-log-parser --version "$(GEM_VERSION_NAIS_LOG_PARSER)" --source "https://rubygems.pkg.github.com/nais"
 	test -r nais-log-parser-$(GEM_VERSION_NAIS_LOG_PARSER).gem
 
 fluent-plugin-nais-$(GEM_VERSION_FLUENT_PLUGIN_NAIS).gem:
-	gem fetch fluent-plugin-nais --version "$(GEM_VERSION_FLUENT_PLUGIN_NAIS)" --source "https://x-access-token:$(GITHUB_TOKEN)@rubygems.pkg.github.com/nais"
+	gem fetch fluent-plugin-nais --version "$(GEM_VERSION_FLUENT_PLUGIN_NAIS)" --source "https://rubygems.pkg.github.com/nais"
 	test -r fluent-plugin-nais-$(GEM_VERSION_FLUENT_PLUGIN_NAIS).gem
